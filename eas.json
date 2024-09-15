@@ -28,6 +28,11 @@
       "ios": { "simulator": true },
       "android": { "buildType": "apk" }
     },
+    "preview2": {
+      "android": {
+        "gradleCommand": ":app:assembleRelease"
+      }
+    },
     "preview:device": {
       "extends": "preview",
       "ios": { "simulator": false }

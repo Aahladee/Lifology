@@ -85,7 +85,6 @@ const UsersList: React.FC = () => {
     const [data, setData] = React.useState<User[]>([]);
     
     const renderItem = ({ item }: {item: User} ) => {
-        // console.log('item',item);
         return (
             <TouchableOpacity 
             style={styles.card}
@@ -102,22 +101,15 @@ const UsersList: React.FC = () => {
             > 
                 <View style={{flexDirection:'row'}}>
                     <View
-                    style={{
-                        marginHorizontal:10,
-                        borderRadius:99,
-                        overflow:'hidden',
-                        // backgroundColor:'red'
-                    }}
+                    style={styles.imgView}
                     >
                         <Image 
                             source={{uri: item.image}}
                             style={{width: 50, height: 50,overflow:'hidden',borderRadius:99}}
                         />   
                     </View>
-                    <View style={{
-                        marginHorizontal:10,
-                    }}>
-                        <Text style ={{fontWeight:"bold"}}>{item.name}</Text>
+                    <View style={styles.userDetails}>
+                        <Text style ={styles.userName}>{item.name}</Text>
                         <Text>{item.email}</Text>
                         <Text>{item.phone}</Text>
                     </View>
@@ -134,29 +126,14 @@ const UsersList: React.FC = () => {
                     name: `${user.firstName} ${user.lastName}`,
                 });
             });
-            // console.log('data',data);
             setData(newData);
         });
     }, []);
 
     return (
       <View style={styles.container}>
-       <View
-            style={{
-                // flexDirection:'row',
-                // justifyContent:'space-between',
-                // alignItems:'center'
-                marginTop: StatusBar.currentHeight || deviceHeight*0.025,
-            }}
-       > 
-            <Text 
-                style ={{
-                    fontWeight:"bold",
-                    fontSize:20,
-                    marginVertical:15,
-                    color:'#252626'
-                }}
-            >
+       <View style={styles.headerTxtView}> 
+            <Text style ={styles.headerTxt}>
                 LIFOLOGY USERS
             </Text>
         </View>
@@ -170,7 +147,6 @@ const UsersList: React.FC = () => {
                 console.log('end reached')                  
             }
         />
-        
       </View>
     );
   };
@@ -194,5 +170,23 @@ const styles=StyleSheet.create({
         shadowOffset: { width: 0, height: 2 },
         shadowOpacity: 0.8,
         marginBottom:20
+    },
+    userDetails:{
+        marginHorizontal:10,  
+    },
+    imgView:{
+        marginHorizontal:10,
+        borderRadius:99,
+        overflow:'hidden',
+    },
+    userName:{fontWeight:"bold"},
+    headerTxtView:{
+        marginTop: StatusBar.currentHeight || deviceHeight*0.025,
+    },
+    headerTxt:{
+        fontWeight:"bold",
+        fontSize:20,
+        marginVertical:15,
+        color:'#252626'
     },
 })
