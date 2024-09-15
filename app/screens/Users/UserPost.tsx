@@ -22,8 +22,6 @@ export default function UserPost({route}:Props) {
     const [isLoading, setIsLoading] = useState(false);
     const [dataLoaded, setDataLoaded] = useState(false); // New state to track if data has been loaded
    
-    console.log('route',route.params?.userId);
-
     const fetchData = async () => {
         setIsLoading(true);
         // Simulate an async operation like fetching data
@@ -35,12 +33,7 @@ export default function UserPost({route}:Props) {
     
     const dataNotFound = () => {
         return(
-            <View style={{
-                flex:1,
-                justifyContent:'center',
-                alignContent:'center',
-                alignItems:'center'
-            }}>
+            <View style={styles.DataNotFoundText}>
                 <Text>No Data Found</Text>
             </View>
         )
@@ -49,83 +42,28 @@ export default function UserPost({route}:Props) {
     const renderItem = ({item}) => {
         console.log('item',item);
         return(
-            <View style={{
-                justifyContent:'space-around',
-                alignContent:'center',
-                padding:10,
-                marginHorizontal:16,
-                backgroundColor:'#fff',
-                borderRadius:10,
-                borderWidth:1,
-                borderColor:'#E5E5E5',
-                marginVertical:10
-            }}>
-                <Text style={{
-                    fontWeight:"bold",
-                    fontSize:20,
-                }}>
-                    {item.title}
-                </Text>
-                <Text
-                numberOfLines={15}
-                style={{
-                    marginVertical:10,
-                    color:'#818182',
-                    textAlign:'left',
-                    fontSize:16
-                }}
-                >
-                    {item.body}
-                </Text>
-                <View style={{
-                    flexDirection:'row',
-                    justifyContent:'space-between',
-                    padding:10,
-                    borderRadius:10,
-                    backgroundColor:'#E5E5E5',
-                }}>
-                    <View style={{
-                        flexDirection:'row',
-                        justifyContent:'space-around',
-                        alignContent:'center'
-                    }}>
+            <View style={styles.PostsCard}>
+                <Text style={styles.PostTitleTxt}>{item.title}</Text>
+                <Text numberOfLines={15} style={styles.PostBodyTxt}>{item.body}</Text>
+
+                <View style={styles.display}>
+                    <View style={styles.likesView}>
                         <LikeIcons name="heart" size={22} color="red"/>
-                        <Text style={{
-                            color:'#818182',
-                            marginHorizontal:8
-                        }}>
+                        <Text style={styles.likeText}>
                             {item.likes}
                             </Text>
                     </View>
 
-                    <View
-                    style={{
-                        flexDirection:'row',
-                        justifyContent:'space-around',
-                        alignContent:'center'
-                    }}
-                    >
+                    <View style={styles.likesView}>
                         <DisLikes name="dislike" size={25} color="black"/>
-                        <Text style={{
-                            color:'#818182',
-                            marginHorizontal:8
-                        }}>
+                        <Text style={styles.likeText}>
                             {item.dislikes}
                             </Text>
                     </View>
                     
-                    <View
-                    style={{
-                        flexDirection:'row',
-                        justifyContent:'space-around',
-                        alignContent:'center'
-                    }}
-                    >
+                    <View style={styles.likesView}>
                         <Views name="eye" size={22} color="black"/>
-                        <Text style={{
-                            color:'#818182',
-                            marginHorizontal:8
-                        }}>
+                        <Text style={styles.likeText}>
                             {item.views}
                             </Text>
                     </View>
@@ -159,31 +97,12 @@ export default function UserPost({route}:Props) {
 
   return (
     <>
-    <View style={{
-        flex:1,
-        backgroundColor:'#fff',
-        // marginHorizontal:16,
-
-    }}>
-        <View style={{
-            flexDirection:'row',
-            alignContent:'center',
-            padding:10,
-            backgroundColor:'#fff',
-            borderBottomColor:'#E5E5E5',
-            paddingTop: StatusBar.currentHeight || deviceHeight*0.05,
-        }}>
+    <View style={styles.mainContainerView}>
+        <View style={styles.headerView}>
         <BackButton/>
         <View>
             <Text
-                style ={{
-                    fontWeight:"bold",
-                    fontSize:20,
-                    marginVertical:deviceHeight*0.01,
-                    marginHorizontal:10,
-                    color:'#252626',
-                    bottom:7
-                }}
+                style ={styles.UserPostText}
             >UserPost</Text>
         </View>
         </View>
@@ -202,12 +121,7 @@ export default function UserPost({route}:Props) {
          ? dataNotFound()
          :
          <View 
-         style={{
-                flex:1,
-                justifyContent:'center',
-                alignContent:'center',
-                alignItems:'center'
-         }}
+         style={styles.loaderView}
          >
             <ActivityIndicator size="large" color="#0000ff" />
          </View>
@@ -263,6 +177,78 @@ const styles = StyleSheet.create({
         color: '#818182',
         marginHorizontal: 8,
       },
+      DataNotFoundText:{
+        flex:1,
+        justifyContent:'center',
+        alignContent:'center',
+        alignItems:'center'
+    },
+    PostsCard: {
+        justifyContent:'space-around',
+        alignContent:'center',
+        padding:10,
+        marginHorizontal:16,
+        backgroundColor:'#fff',
+        borderRadius:10,
+        borderWidth:1,
+        borderColor:'#E5E5E5',
+        marginVertical:10
+    },
+    PostTitleTxt:{
+        fontWeight:"bold",
+        fontSize:20,
+    },
+    PostBodyTxt:{
+        marginVertical:10,
+        color:'#818182',
+        textAlign:'left',
+        fontSize:16
+    },
+    display:{
+        flexDirection:'row',
+        justifyContent:'space-between',
+        padding:10,
+        borderRadius:10,
+        backgroundColor:'#E5E5E5',
+    },
+    likesView:{
+        flexDirection:'row',
+        justifyContent:'space-around',
+        alignContent:'center'
+    },
+    likeText:{
+        color:'#818182',
+        marginHorizontal:8
+    },
+    mainContainerView:{
+        flex:1,
+        backgroundColor:'#fff',
+    },
+    headerView:{
+        flexDirection:'row',
+        alignContent:'center',
+        padding:10,
+        backgroundColor:'#fff',
+        borderBottomColor:'#E5E5E5',
+        paddingTop: StatusBar.currentHeight || deviceHeight*0.05,
+    },
+    UserPostText:{
+        fontWeight:"bold",
+        fontSize:20,
+        marginVertical:deviceHeight*0.01,
+        marginHorizontal:10,
+        color:'#252626',
+        bottom:7
+    },
+    loaderView:{
+        flex:1,
+        justifyContent:'center',
+        alignContent:'center',
+        alignItems:'center'
+ },
+ BackButton:{
+    marginVertical:deviceHeight*0.005,
+}
 })
 
 export function BackButton() {
@@ -270,9 +256,7 @@ export function BackButton() {
     return (
        
         <TouchableOpacity 
-        style={{
-            marginVertical:deviceHeight*0.005,
-        }}
+        style={styles.BackButton}
         onPress={() => navigation.goBack()} 
         >
           <Ionicons name="arrow-back" size={24} color="black" />
