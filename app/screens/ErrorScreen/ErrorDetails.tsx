@@ -27,14 +27,14 @@ export function ErrorDetails(props: ErrorDetailsProps) {
         <Text tx="errorScreen.friendlySubtitle" />
       </View>
 
-      <ScrollView style={$errorSection} contentContainerStyle={$errorSectionContentContainer}>
+      {/* <ScrollView style={$errorSection} contentContainerStyle={$errorSectionContentContainer}>
         <Text style={$errorContent} weight="bold" text={`${props.error}`.trim()} />
         <Text
           selectable
           style={$errorBacktrace}
           text={`${props.errorInfo?.componentStack ?? ""}`.trim()}
         />
-      </ScrollView>
+      </ScrollView> */}
 
       <Button
         preset="reversed"
